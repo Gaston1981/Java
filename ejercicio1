@@ -1,0 +1,105 @@
+import java.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class EjemploJCheckBox extends JFrame
+{
+    // Se crean 5 (objetos) JCheckBox con distintos valores
+
+    private JCheckBox miJCheckbox1000 = new JCheckBox("$1.000");
+    private JCheckBox miJCheckbox2000 = new JCheckBox("$2.000");
+    private JCheckBox miJCheckbox5000 = new JCheckBox("$5.000");
+    private JCheckBox miJCheckbox10000 = new JCheckBox("$10.000");
+    private JCheckBox miJCheckbox20000 = new JCheckBox("$20.000");
+    
+    //se crea un panel (objeto) donde irá el total
+    private JPanel miPanel = new JPanel();
+    private JLabel milabelSumaTotal = new JLabel("Total: ");
+    private JTextField miTextFieldSumaTotal = new JTextField(10);
+    
+    //objeto entero
+    private int sumaTotal = 0;
+    
+    
+    public EjemploJCheckBox()
+    {
+        super ("Ejemplo de JCheckBox");
+        setLayout (new GridLayout(8,3,6,9));
+        
+        //se agregan los JcheckBox al contenedor
+        add(miJCheckbox1000);
+        add(miJCheckbox2000);
+        add(miJCheckbox5000);
+        add(miJCheckbox10000);
+        add(miJCheckbox20000);
+        
+        miPanel.setLayout(new FlowLayout());
+        miTextFieldSumaTotal.setEditable(false);
+        
+        //se agregan el label y el campo del total al Panel
+        miPanel.add(milabelSumaTotal);
+        miPanel.add(miTextFieldSumaTotal);
+        
+        //seagrega el panel al contenedor principal
+        add(miPanel);
+        
+        //se crean las acciones listener para cada JCheckBox
+        ActionListener actionListener = new ActionHandler();
+        miJCheckbox1000.addActionListener(actionListener);
+        miJCheckbox2000.addActionListener(actionListener);
+        miJCheckbox5000.addActionListener(actionListener);
+        miJCheckbox10000.addActionListener(actionListener);
+        miJCheckbox20000.addActionListener(actionListener);
+        
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        
+        
+        
+    }
+    
+    class ActionHandler implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent event)
+        {
+         JCheckBox checkbox = (JCheckBox) event.getSource();
+         if (checkbox.isSelected())
+         {
+             if (checkbox == miJCheckbox1000){
+                 sumaTotal +=1000;
+                } else if (checkbox == miJCheckbox2000){ 
+                sumaTotal +=2000;
+                } else if (checkbox == miJCheckbox5000){
+                sumaTotal +=5000;
+                } else if (checkbox == miJCheckbox10000){
+                sumaTotal +=10000;
+                } else if (checkbox == miJCheckbox20000){
+                sumaTotal +=20000;
+                } 
+         } else {
+             if (checkbox == miJCheckbox1000){
+                 sumaTotal -=1000;
+                } else if (checkbox == miJCheckbox2000){ 
+                sumaTotal -=2000;
+                } else if (checkbox == miJCheckbox5000){
+                sumaTotal -=5000;
+                } else if (checkbox == miJCheckbox10000){
+                sumaTotal -=10000;
+                } else if (checkbox == miJCheckbox20000){
+                sumaTotal -=20000;
+                }            
+            }                 
+            miTextFieldSumaTotal.setText(String.valueOf(sumaTotal));                      
+        }        
+    }
+    
+    public static void main(String[]args){
+        new EjemploJCheckBox().setVisible(true);
+    }
+}
